@@ -2,97 +2,122 @@
 
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>موقعي</title>
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-      background: #f4f4f4;
-      text-align: center;
-    }
-    header {
-      background: #333;
-      color: white;
-      padding: 15px;
-    }
-    nav a {
-      color: white;
-      margin: 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    section {
-      padding: 40px;
-    }
-    .btn {
-      padding: 10px 20px;
-      background: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    .btn:hover {
-      background: #0056b3;
-    }
-    footer {
-      background: #222;
-      color: white;
-      padding: 10px;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>آلة حاسبة علمية</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #1e1e2f;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.calculator {
+  background: #2c2c3e;
+  padding: 20px;
+  border-radius: 15px;
+  width: 320px;
+}
+
+#display {
+  width: 100%;
+  height: 60px;
+  font-size: 22px;
+  margin-bottom: 10px;
+  text-align: right;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+button {
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.operator { background: #ff9500; color: white; }
+.equal { background: #28a745; color: white; grid-column: span 2; }
+.clear { background: #dc3545; color: white; }
+.func { background: #6c63ff; color: white; }
+
+</style>
+
 </head>
 
 <body>
 
-<header>
-  <h1>🚀 مرحباً بك في موقعي</h1>
-  <nav>
-    <a href="#home">الرئيسية</a>
-    <a href="#about">من أنا</a>
-    <a href="#contact">تواصل</a>
-  </nav>
-</header>
+<div class="calculator">
+  <input type="text" id="display" readonly>
 
-<section id="home">
-  <h2>الصفحة الرئيسية</h2>
-  <p>هذا موقع بسيط شغال على GitHub Pages</p>
-  <button class="btn" onclick="showMessage()">اضغط هنا</button>
-</section>
+  <div class="buttons">
+    <button class="clear" onclick="clearDisplay()">C</button>
+    <button onclick="append('(')">(</button>
+    <button onclick="append(')')">)</button>
+    <button class="func" onclick="append('Math.sqrt(')">√</button>
+    <button class="func" onclick="append('Math.pow(')">x²</button>
 
-<section id="about">
-  <h2>من أنا</h2>
-  <p>أنا مطور أتعلم وأبني مواقع 🌐</p>
-</section>
+```
+<button onclick="append('7')">7</button>
+<button onclick="append('8')">8</button>
+<button onclick="append('9')">9</button>
+<button class="operator" onclick="append('/')">÷</button>
+<button class="func" onclick="append('Math.sin(')">sin</button>
 
-<section id="contact">
-  <h2>تواصل معي</h2>
-  <p>اكتب لي رسالة:</p>
-  <input type="text" id="msg" placeholder="اكتب هنا">
-  <button class="btn" onclick="sendMessage()">إرسال</button>
-</section>
+<button onclick="append('4')">4</button>
+<button onclick="append('5')">5</button>
+<button onclick="append('6')">6</button>
+<button class="operator" onclick="append('*')">×</button>
+<button class="func" onclick="append('Math.cos(')">cos</button>
 
-<footer>
-  <p>© 2026 جميع الحقوق محفوظة</p>
-</footer>
+<button onclick="append('1')">1</button>
+<button onclick="append('2')">2</button>
+<button onclick="append('3')">3</button>
+<button class="operator" onclick="append('-')">−</button>
+<button class="func" onclick="append('Math.tan(')">tan</button>
+
+<button onclick="append('0')">0</button>
+<button onclick="append('.')">.</button>
+<button class="operator" onclick="append('+')">+</button>
+<button class="equal" onclick="calculate()">=</button>
+```
+
+  </div>
+</div>
 
 <script>
-  function showMessage() {
-    alert("اشتغل الزر بنجاح 🎉");
-  }
+function append(value) {
+  document.getElementById("display").value += value;
+}
 
-  function sendMessage() {
-    let msg = document.getElementById("msg").value;
-    if(msg === "") {
-      alert("اكتب رسالة أولاً!");
-    } else {
-      alert("تم إرسال: " + msg);
-    }
+function clearDisplay() {
+  document.getElementById("display").value = "";
+}
+
+function calculate() {
+  try {
+    let result = eval(document.getElementById("display").value);
+    document.getElementById("display").value = result;
+  } catch {
+    alert("خطأ في العملية");
   }
+}
 </script>
 
 </body>
