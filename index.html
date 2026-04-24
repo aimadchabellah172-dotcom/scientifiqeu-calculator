@@ -7,19 +7,21 @@
 
 <style>
 :root{
-  --bg:#f4f4f4;
+  --bg:#f5f7fb;
   --card:#ffffff;
   --text:#111;
-  --btn:#e0e0e0;
+  --btn:#e9eef5;
   --accent:#4a90e2;
+  --shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
 body.dark{
-  --bg:#0f172a;
-  --card:#1e293b;
+  --bg:#0b1220;
+  --card:#1b2435;
   --text:#f8fafc;
-  --btn:#334155;
+  --btn:#2a354b;
   --accent:#38bdf8;
+  --shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 body{
@@ -31,7 +33,7 @@ body{
 }
 
 .container{
-  max-width:1000px;
+  max-width:1100px;
   margin:auto;
   padding:20px;
 }
@@ -46,66 +48,76 @@ body{
 .calculator{
   background:var(--card);
   padding:20px;
-  border-radius:15px;
-  width:320px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  width:340px;
 }
 
 .screen{
   width:100%;
-  height:60px;
-  font-size:22px;
+  height:70px;
+  font-size:26px;
   padding:10px;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   background:var(--bg);
   color:var(--text);
+  text-align:left;
 }
 
 .buttons{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
-  margin-top:10px;
+  margin-top:15px;
 }
 
 .btn{
-  padding:15px;
+  padding:14px;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   background:var(--btn);
+  font-size:15px;
   cursor:pointer;
+  transition:0.2s;
 }
 
 .btn:hover{
   background:var(--accent);
   color:white;
+  transform:scale(1.05);
 }
 
-/* Cards */
+/* cards */
 .card{
   background:var(--card);
   padding:20px;
-  border-radius:15px;
+  border-radius:20px;
   margin-top:20px;
+  box-shadow:var(--shadow);
 }
 
-/* Comments */
-input, textarea{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  background:var(--bg);
-  color:var(--text);
+/* rating */
+.stars{
+  display:flex;
+  gap:8px;
+  font-size:35px;
+  cursor:pointer;
 }
 
-.comment{
-  background:var(--bg);
-  padding:10px;
-  margin-top:10px;
-  border-radius:10px;
+.star{
+  color:#bbb;
+  transition:0.2s;
+}
+
+.star.active,
+.star:hover{
+  color:gold;
+  transform:scale(1.2);
+}
+
+small{
+  opacity:0.7;
 }
 
 </style>
@@ -115,74 +127,76 @@ input, textarea{
 
 <div class="container">
 
-  <div class="header">
-    <h2>آلة حاسبة علمية</h2>
-    <button onclick="toggleTheme()">🌙 تبديل الوضع</button>
-  </div>
+<div class="header">
+  <h2>🧮 آلة حاسبة علمية</h2>
+  <button onclick="toggleTheme()">🌙 تبديل الوضع</button>
+</div>
 
-  <div style="display:flex; gap:20px; flex-wrap:wrap;">
+<div style="display:flex; gap:20px; flex-wrap:wrap;">
 
-    <!-- Calculator -->
-    <div class="calculator">
-      <input id="screen" class="screen" disabled>
+<!-- Calculator -->
+<div class="calculator">
+  <input id="screen" class="screen" disabled>
 
-      <div class="buttons">
-        <button class="btn" onclick="press('7')">7</button>
-        <button class="btn" onclick="press('8')">8</button>
-        <button class="btn" onclick="press('9')">9</button>
-        <button class="btn" onclick="press('/')">/</button>
+  <div class="buttons">
 
-        <button class="btn" onclick="press('4')">4</button>
-        <button class="btn" onclick="press('5')">5</button>
-        <button class="btn" onclick="press('6')">6</button>
-        <button class="btn" onclick="press('*')">*</button>
+    <button class="btn" onclick="add('7')">7</button>
+    <button class="btn" onclick="add('8')">8</button>
+    <button class="btn" onclick="add('9')">9</button>
+    <button class="btn" onclick="add('/')">÷</button>
 
-        <button class="btn" onclick="press('1')">1</button>
-        <button class="btn" onclick="press('2')">2</button>
-        <button class="btn" onclick="press('3')">3</button>
-        <button class="btn" onclick="press('-')">-</button>
+    <button class="btn" onclick="add('4')">4</button>
+    <button class="btn" onclick="add('5')">5</button>
+    <button class="btn" onclick="add('6')">6</button>
+    <button class="btn" onclick="add('*')">×</button>
 
-        <button class="btn" onclick="press('0')">0</button>
-        <button class="btn" onclick="press('.')">.</button>
-        <button class="btn" onclick="calc()">=</button>
-        <button class="btn" onclick="press('+')">+</button>
+    <button class="btn" onclick="add('1')">1</button>
+    <button class="btn" onclick="add('2')">2</button>
+    <button class="btn" onclick="add('3')">3</button>
+    <button class="btn" onclick="add('-')">-</button>
 
-        <button class="btn" onclick="clearScreen()">C</button>
-      </div>
-    </div>
+    <button class="btn" onclick="add('0')">0</button>
+    <button class="btn" onclick="add('.')">.</button>
+    <button class="btn" onclick="calc()">=</button>
+    <button class="btn" onclick="add('+')">+</button>
 
-    <!-- Explanation -->
-    <div class="card" style="flex:1;">
-      <h3>طريقة عمل الحاسبة</h3>
-      <p>تعتمد على JavaScript لتنفيذ العمليات الرياضية باستخدام eval و Math.</p>
-    </div>
+    <!-- scientific -->
+    <button class="btn" onclick="addFunc('sin')">sin</button>
+    <button class="btn" onclick="addFunc('cos')">cos</button>
+    <button class="btn" onclick="addFunc('tan')">tan</button>
+    <button class="btn" onclick="clearAll()">C</button>
 
   </div>
+</div>
 
-  <!-- Rating -->
-  <div class="card">
-    <h3>تقييم الموقع</h3>
-    <p>اضغط لتقييم الموقع:</p>
-    <div id="stars">
-      <span onclick="rate(1)">★</span>
-      <span onclick="rate(2)">★</span>
-      <span onclick="rate(3)">★</span>
-      <span onclick="rate(4)">★</span>
-      <span onclick="rate(5)">★</span>
-    </div>
+<!-- info -->
+<div class="card" style="flex:1;">
+  <h3>📌 طريقة العمل</h3>
+  <p>
+    تعتمد الحاسبة على JavaScript مع دعم العمليات الرياضية والدوال العلمية مثل sin و cos و tan.
+  </p>
+  <p>
+    يتم تحويل الدرجات إلى راديان للحساب الصحيح.
+  </p>
+</div>
+
+</div>
+
+<!-- rating -->
+<div class="card">
+  <h3>⭐ تقييم الموقع</h3>
+  <small>اضغط على النجوم للتقييم</small>
+
+  <div class="stars" id="stars">
+    <span class="star" onclick="rate(1)">★</span>
+    <span class="star" onclick="rate(2)">★</span>
+    <span class="star" onclick="rate(3)">★</span>
+    <span class="star" onclick="rate(4)">★</span>
+    <span class="star" onclick="rate(5)">★</span>
   </div>
 
-  <!-- Comments System -->
-  <div class="card">
-    <h3>التعليقات</h3>
-
-    <input id="name" placeholder="اسمك">
-    <textarea id="comment" placeholder="اكتب تعليقك"></textarea>
-
-    <button class="btn" onclick="addComment()">إرسال</button>
-
-    <div id="commentsList"></div>
-  </div>
+  <p id="rateText"></p>
+</div>
 
 </div>
 
@@ -190,71 +204,61 @@ input, textarea{
 
 let screen = document.getElementById("screen");
 
-function press(v){
+function add(v){
   screen.value += v;
+}
+
+/* scientific functions */
+function addFunc(fn){
+  screen.value += fn + "(";
 }
 
 function calc(){
   try{
-    screen.value = eval(screen.value);
+    let expr = screen.value;
+
+    // convert sin/cos/tan degrees to radians
+    expr = expr.replace(/sin\(/g,"Math.sin(Math.PI/180*");
+    expr = expr.replace(/cos\(/g,"Math.cos(Math.PI/180*");
+    expr = expr.replace(/tan\(/g,"Math.tan(Math.PI/180*");
+
+    screen.value = eval(expr);
   }catch{
     screen.value = "خطأ";
   }
 }
 
-function clearScreen(){
+function clearAll(){
   screen.value = "";
 }
 
+/* theme */
 function toggleTheme(){
   document.body.classList.toggle("dark");
 }
 
-/* Rating */
+/* rating system */
 function rate(n){
-  localStorage.setItem("rating", n);
-  alert("تم التقييم: " + n);
+  localStorage.setItem("rate", n);
+  updateStars(n);
 }
 
-/* Comments */
-function addComment(){
-  let name = document.getElementById("name").value;
-  let text = document.getElementById("comment").value;
+function updateStars(n){
+  let stars = document.querySelectorAll(".star");
 
-  if(!name || !text){
-    alert("اكتب الاسم والتعليق");
-    return;
-  }
-
-  let comments = JSON.parse(localStorage.getItem("comments") || "[]");
-
-  comments.push({name, text});
-
-  localStorage.setItem("comments", JSON.stringify(comments));
-
-  document.getElementById("name").value = "";
-  document.getElementById("comment").value = "";
-
-  loadComments();
-}
-
-function loadComments(){
-  let comments = JSON.parse(localStorage.getItem("comments") || "[]");
-  let box = document.getElementById("commentsList");
-
-  box.innerHTML = "";
-
-  comments.forEach(c=>{
-    box.innerHTML += `
-      <div class="comment">
-        <b>${c.name}</b>
-        <p>${c.text}</p>
-      </div>
-    `;
+  stars.forEach((s,i)=>{
+    s.classList.toggle("active", i < n);
   });
+
+  document.getElementById("rateText").innerText =
+    "تقييمك: " + n + " / 5 ⭐";
 }
 
-window.onload = loadComments;
+/* load rating */
+window.onload = ()=>{
+  let r = localStorage.getItem("rate");
+  if(r) updateStars(Number(r));
+};
 
 </script>
 
