@@ -3,108 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>??? ????? ????? ????????</title>
+<title>آلة حاسبة علمية احترافية</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
-body{
-margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#0f172a,#1e293b);
-color:white;
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
 }
 
-.container{
-max-width:900px;
-margin:auto;
-padding:15px;
-display:flex;
-flex-direction:column;
-gap:20px;
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* cards */
-.card{
-background:rgba(255,255,255,0.08);
-padding:15px;
-border-radius:20px;
-backdrop-filter:blur(10px);
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 15px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
 }
 
 /* calculator */
-.screen{
-width:100%;
-height:70px;
-font-size:24px;
-border:none;
-border-radius:10px;
-padding:10px;
-background:rgba(255,255,255,0.1);
-color:white;
+.screen {
+  width: 100%;
+  height: 70px;
+  font-size: 24px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
-.row{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:8px;
-margin-top:8px;
+.row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 8px;
 }
 
-.btn{
-padding:12px;
-border:none;
-border-radius:10px;
-background:#334155;
-color:white;
-cursor:pointer;
-transition:0.2s;
+.btn {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #334155;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.btn:hover{
-background:#38bdf8;
-color:black;
-transform:scale(1.05);
+.btn:hover {
+  background: #38bdf8;
+  color: black;
+  transform: scale(1.05);
 }
 
-.btn:active{
-transform:scale(0.95);
+.btn:active {
+  transform: scale(0.95);
 }
 
 /* stars */
-.stars span{
-font-size:30px;
-cursor:pointer;
-color:#555;
+.stars span {
+  font-size: 30px;
+  cursor: pointer;
+  color: #555;
 }
 
-.stars span.active{
-color:gold;
+.stars span.active {
+  color: gold;
 }
 
 /* input */
-input,textarea{
-width:100%;
-padding:10px;
-margin-top:10px;
-border-radius:10px;
-border:none;
-background:rgba(255,255,255,0.1);
-color:white;
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 /* comment */
-.comment{
-background:rgba(255,255,255,0.1);
-padding:10px;
-margin-top:10px;
-border-radius:10px;
+.comment {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
 }
 
-canvas{
-background:white;
-border-radius:10px;
+canvas {
+  background: white;
+  border-radius: 10px;
 }
 
 </style>
@@ -114,9 +114,9 @@ border-radius:10px;
 
 <div class="container">
 
-<h2>?? ??? ????? ????? ????????</h2>
+<h2>آلة حاسبة علمية احترافية</h2>
 
-<!-- ?? CALCULATOR -->
+<!-- 🧮 CALCULATOR -->
 <div class="card">
 
 <input id="screen" class="screen" disabled>
@@ -153,11 +153,11 @@ border-radius:10px;
 <button class="btn" onclick="addFunc('sin')">sin</button>
 <button class="btn" onclick="addFunc('cos')">cos</button>
 <button class="btn" onclick="addFunc('tan')">tan</button>
-<button class="btn" onclick="sqrt()">?</button>
+<button class="btn" onclick="sqrt()">√</button>
 </div>
 
 <div class="row">
-<button class="btn" onclick="power()">x?</button>
+<button class="btn" onclick="power()">xʸ</button>
 <button class="btn" onclick="log10()">log</button>
 <button class="btn" onclick="ln()">ln</button>
 <button class="btn" onclick="clearAll()">C</button>
@@ -165,45 +165,45 @@ border-radius:10px;
 
 </div>
 
-<!-- ?? GRAPH -->
+<!-- 📊 GRAPH -->
 <div class="card">
-<h3>?? ????? ???????</h3>
+<h3>الرسم البياني</h3>
 <input id="funcs" placeholder="x*x; sin(x); x+2">
-<button class="btn" onclick="draw()">???</button>
+<button class="btn" onclick="draw()">رسم</button>
 <canvas id="chart"></canvas>
 </div>
 
-<!-- ?? AI -->
+<!-- 🤖 AI -->
 <div class="card">
-<h3>?? ?????? ????????? (?? ???????)</h3>
-<input id="ai" placeholder="????: 2x+3=7">
-<button class="btn" onclick="solve()">??</button>
+<h3>الذكاء الاصطناعي (حل المعادلات)</h3>
+<input id="ai" placeholder="مثال: 2x+3=7">
+<button class="btn" onclick="solve()">حل</button>
 <p id="out"></p>
 </div>
 
-<!-- ? RATING -->
+<!-- ⭐ RATING -->
 <div class="card">
-<h3>? ???????</h3>
+<h3>التقييم</h3>
 
 <div class="stars">
-<span onclick="rate(1)">?</span>
-<span onclick="rate(2)">?</span>
-<span onclick="rate(3)">?</span>
-<span onclick="rate(4)">?</span>
-<span onclick="rate(5)">?</span>
+<span onclick="rate(1)">★</span>
+<span onclick="rate(2)">★</span>
+<span onclick="rate(3)">★</span>
+<span onclick="rate(4)">★</span>
+<span onclick="rate(5)">★</span>
 </div>
 
 <p id="rateText"></p>
 </div>
 
-<!-- ?? COMMENTS -->
+<!-- 💬 COMMENTS -->
 <div class="card">
-<h3>?? ?????????</h3>
+<h3>التعليقات</h3>
 
-<input id="name" placeholder="????">
-<textarea id="msg" placeholder="??????"></textarea>
+<input id="name" placeholder="اسمك">
+<textarea id="msg" placeholder="تعليقك"></textarea>
 
-<button class="btn" onclick="addComment()">?????</button>
+<button class="btn" onclick="addComment()">إرسال</button>
 
 <div id="comments"></div>
 
@@ -213,109 +213,107 @@ border-radius:10px;
 
 <script>
 
-let screen=document.getElementById("screen");
+let screen = document.getElementById("screen");
 let chart;
 
 /* calculator */
-function add(v){screen.value+=v;}
-function addFunc(f){screen.value+=f+"(";}
+function add(v) {
+  screen.value += v;
+}
+function addFunc(f) {
+  screen.value += f + "(";
+}
 
 /* math */
-function sqrt(){screen.value=Math.sqrt(eval(screen.value));}
-function power(){screen.value+="**";}
-function log10(){screen.value=Math.log10(eval(screen.value));}
-function ln(){screen.value=Math.log(eval(screen.value));}
-function clearAll(){screen.value="";}
-
-function calc(){
-try{
-let e=screen.value;
-
-e=e.replace(/sin\(/g,"Math.sin(Math.PI/180*");
-e=e.replace(/cos\(/g,"Math.cos(Math.PI/180*");
-e=e.replace(/tan\(/g,"Math.tan(Math.PI/180*");
-e=e.replace(/\^/g,"**");
-
-screen.value=eval(e);
-}catch{screen.value="???";}
+function sqrt() {
+  screen.value = Math.sqrt(eval(screen.value));
+}
+function power() {
+  screen.value += "**";
+}
+function log10() {
+  screen.value = Math.log10(eval(screen.value));
+}
+function ln() {
+  screen.value = Math.log(eval(screen.value));
+}
+function clearAll() {
+  screen.value = "";
 }
 
-/* ?? graph */
-function draw(){
-let f=document.getElementById("funcs").value.split(";");
+function calc() {
+  try {
+    let e = screen.value;
 
-let x=[],sets=[];
+    e = e.replace(/sin\(/g, "Math.sin(Math.PI/180*");
+    e = e.replace(/cos\(/g, "Math.cos(Math.PI/180*");
+    e = e.replace(/tan\(/g, "Math.tan(Math.PI/180*");
+    e = e.replace(/\^/g, "**");
 
-for(let i=-10;i<=10;i++)x.push(i);
-
-f.forEach((fn,i)=>{
-let y=[];
-for(let xVal=-10;xVal<=10;xVal++){
-try{
-y.push(eval(fn.replace(/x/g,xVal)));
-}catch{y.push(0);}
-}
-sets.push({
-label:fn,
-data:y,
-borderColor:["red","blue","green","orange"][i%4],
-fill:false
-});
-});
-
-if(chart)chart.destroy();
-
-chart=new Chart(document.getElementById("chart"),{
-type:"line",
-data:{labels:x,datasets:sets}
-});
+    screen.value = eval(e);
+  } catch {
+    screen.value = "خطأ";
+  }
 }
 
-/* ?? AI */
-function solve(){
-let eq=document.getElementById("ai").value.split("=");
-let L=eq[0],R=eq[1];
+/* 📊 graph */
+function draw() {
+  let f = document.getElementById("funcs").value.split(";");
 
-for(let i=-100;i<100;i++){
-if(Math.abs(eval(L.replace(/x/g,i))-eval(R))<0.1){
-document.getElementById("out").innerText="x ? "+i;
-break;
-}
-}
-}
+  let x = [], sets = [];
 
-/* ? rating */
-function rate(n){
-document.querySelectorAll(".stars span").forEach((s,i)=>{
-s.classList.toggle("active",i<n);
-});
-document.getElementById("rateText").innerText="?????? "+n+"/5";
-}
+  for (let i = -10; i <= 10; i++) x.push(i);
 
-/* ?? comments */
-function addComment(){
-let n=document.getElementById("name").value;
-let m=document.getElementById("msg").value;
-if(!n||!m)return;
+  f.forEach((fn, i) => {
+    let y = [];
+    for (let xVal = -10; xVal <= 10; xVal++) {
+      try {
+        y.push(eval(fn.replace(/x/g, xVal)));
+      } catch {
+        y.push(0);
+      }
+    }
+    sets.push({
+      label: fn,
+      data: y,
+      borderColor: ["red", "blue", "green", "orange"][i % 4],
+      fill: false
+    });
+  });
 
-let c=JSON.parse(localStorage.getItem("c")||"[]");
-c.unshift({n,m});
-localStorage.setItem("c",JSON.stringify(c));
-load();
-}
+  if (chart) chart.destroy();
 
-function load(){
-let box=document.getElementById("comments");
-let c=JSON.parse(localStorage.getItem("c")||"[]");
-box.innerHTML="";
-c.forEach(v=>{
-box.innerHTML+=`<div class="comment"><b>${v.n}</b><p>${v.m}</p></div>`;
-});
+  chart = new Chart(document.getElementById("chart"), {
+    type: "line",
+    data: { labels: x, datasets: sets }
+  });
 }
 
-window.onload=load;
+/* 🤖 AI */
+function solve() {
+  let eq = document.getElementById("ai").value.split("=");
+  let L = eq[0], R = eq[1];
 
-</script>
+  for (let i = -100; i < 100; i++) {
+    if (Math.abs(eval(L.replace(/x/g, i)) - eval(R)) < 0.1) {
+      document.getElementById("out").innerText = "x = " + i;
+      break;
+    }
+  }
+}
 
-</body>
-</html>
+/* ⭐ rating */
+function rate(n) {
+  document.querySelectorAll(".stars span").forEach((s, i) => {
+    s.classList.toggle("active", i < n);
+  });
+  document.getElementById("rateText").innerText = "التقييم: " + n + "/5";
+}
+
+/* 💬 comments */
+function addComment() {
+  let n = document.getElementById("name").value;
+  let m = document.getElementById("msg").value;
+  if (!n || !m) return;
+
+  let c = JSON.parse
