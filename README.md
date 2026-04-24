@@ -1,0 +1,2 @@
+# scientifiqeu-calculator
+by ITSREALPRO
