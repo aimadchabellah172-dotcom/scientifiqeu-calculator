@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>آلة حاسبة علمية</title>
+<title>آلة حاسبة علمية احترافية</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 :root{
@@ -12,7 +14,6 @@
   --text:#111;
   --btn:#e9eef5;
   --accent:#4a90e2;
-  --shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
 body.dark{
@@ -21,103 +22,87 @@ body.dark{
   --text:#f8fafc;
   --btn:#2a354b;
   --accent:#38bdf8;
-  --shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 body{
   margin:0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   background:var(--bg);
   color:var(--text);
-  transition:0.3s;
 }
 
 .container{
-  max-width:1100px;
+  max-width:1200px;
   margin:auto;
-  padding:20px;
+  padding:15px;
 }
 
-.header{
+/* layout */
+.layout{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
 }
 
-/* Calculator */
-.calculator{
+/* calculator */
+.calc{
+  width:360px;
   background:var(--card);
-  padding:20px;
   border-radius:20px;
-  box-shadow:var(--shadow);
-  width:340px;
+  padding:15px;
 }
 
 .screen{
   width:100%;
   height:70px;
-  font-size:26px;
-  padding:10px;
+  font-size:24px;
   border:none;
-  border-radius:12px;
+  border-radius:10px;
   background:var(--bg);
   color:var(--text);
-  text-align:left;
+  padding:10px;
 }
 
-.buttons{
+/* buttons */
+.grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-top:15px;
+  gap:8px;
+  margin-top:10px;
 }
 
 .btn{
-  padding:14px;
+  padding:12px;
   border:none;
-  border-radius:12px;
+  border-radius:10px;
   background:var(--btn);
-  font-size:15px;
   cursor:pointer;
-  transition:0.2s;
 }
 
 .btn:hover{
   background:var(--accent);
   color:white;
-  transform:scale(1.05);
 }
 
-/* cards */
-.card{
+/* panels */
+.panel{
+  flex:1;
   background:var(--card);
-  padding:20px;
   border-radius:20px;
-  margin-top:20px;
-  box-shadow:var(--shadow);
+  padding:15px;
 }
 
-/* rating */
-.stars{
-  display:flex;
-  gap:8px;
-  font-size:35px;
-  cursor:pointer;
+/* history */
+.history{
+  max-height:200px;
+  overflow:auto;
+  font-size:14px;
 }
 
-.star{
-  color:#bbb;
-  transition:0.2s;
-}
-
-.star.active,
-.star:hover{
-  color:gold;
-  transform:scale(1.2);
-}
-
-small{
-  opacity:0.7;
+/* graph */
+canvas{
+  background:white;
+  border-radius:10px;
 }
 
 </style>
@@ -127,75 +112,74 @@ small{
 
 <div class="container">
 
-<div class="header">
-  <h2>🧮 آلة حاسبة علمية</h2>
-  <button onclick="toggleTheme()">🌙 تبديل الوضع</button>
-</div>
+<h2>🧮 آلة حاسبة علمية احترافية</h2>
+<button onclick="toggleTheme()">🌙 تغيير الوضع</button>
 
-<div style="display:flex; gap:20px; flex-wrap:wrap;">
+<div class="layout">
 
-<!-- Calculator -->
-<div class="calculator">
-  <input id="screen" class="screen" disabled>
+<!-- CALCULATOR -->
+<div class="calc">
 
-  <div class="buttons">
+<input id="screen" class="screen" disabled>
 
-    <button class="btn" onclick="add('7')">7</button>
-    <button class="btn" onclick="add('8')">8</button>
-    <button class="btn" onclick="add('9')">9</button>
-    <button class="btn" onclick="add('/')">÷</button>
+<div class="grid">
 
-    <button class="btn" onclick="add('4')">4</button>
-    <button class="btn" onclick="add('5')">5</button>
-    <button class="btn" onclick="add('6')">6</button>
-    <button class="btn" onclick="add('*')">×</button>
+<button class="btn" onclick="add('7')">7</button>
+<button class="btn" onclick="add('8')">8</button>
+<button class="btn" onclick="add('9')">9</button>
+<button class="btn" onclick="add('/')">÷</button>
 
-    <button class="btn" onclick="add('1')">1</button>
-    <button class="btn" onclick="add('2')">2</button>
-    <button class="btn" onclick="add('3')">3</button>
-    <button class="btn" onclick="add('-')">-</button>
+<button class="btn" onclick="add('4')">4</button>
+<button class="btn" onclick="add('5')">5</button>
+<button class="btn" onclick="add('6')">6</button>
+<button class="btn" onclick="add('*')">×</button>
 
-    <button class="btn" onclick="add('0')">0</button>
-    <button class="btn" onclick="add('.')">.</button>
-    <button class="btn" onclick="calc()">=</button>
-    <button class="btn" onclick="add('+')">+</button>
+<button class="btn" onclick="add('1')">1</button>
+<button class="btn" onclick="add('2')">2</button>
+<button class="btn" onclick="add('3')">3</button>
+<button class="btn" onclick="add('-')">-</button>
 
-    <!-- scientific -->
-    <button class="btn" onclick="addFunc('sin')">sin</button>
-    <button class="btn" onclick="addFunc('cos')">cos</button>
-    <button class="btn" onclick="addFunc('tan')">tan</button>
-    <button class="btn" onclick="clearAll()">C</button>
+<button class="btn" onclick="add('0')">0</button>
+<button class="btn" onclick="add('.')">.</button>
+<button class="btn" onclick="calc()">=</button>
+<button class="btn" onclick="add('+')">+</button>
 
-  </div>
-</div>
+<!-- scientific -->
+<button class="btn" onclick="addFunc('sin')">sin</button>
+<button class="btn" onclick="addFunc('cos')">cos</button>
+<button class="btn" onclick="addFunc('tan')">tan</button>
+<button class="btn" onclick="add('^')">^</button>
 
-<!-- info -->
-<div class="card" style="flex:1;">
-  <h3>📌 طريقة العمل</h3>
-  <p>
-    تعتمد الحاسبة على JavaScript مع دعم العمليات الرياضية والدوال العلمية مثل sin و cos و tan.
-  </p>
-  <p>
-    يتم تحويل الدرجات إلى راديان للحساب الصحيح.
-  </p>
-</div>
+<button class="btn" onclick="sqrt()">√</button>
+<button class="btn" onclick="log10()">log</button>
+<button class="btn" onclick="ln()">ln</button>
+<button class="btn" onclick="clearAll()">C</button>
+
+<!-- memory -->
+<button class="btn" onclick="MC()">MC</button>
+<button class="btn" onclick="MR()">MR</button>
+<button class="btn" onclick="Mplus()">M+</button>
+<button class="btn" onclick="Mminus()">M-</button>
 
 </div>
+</div>
 
-<!-- rating -->
-<div class="card">
-  <h3>⭐ تقييم الموقع</h3>
-  <small>اضغط على النجوم للتقييم</small>
+<!-- HISTORY -->
+<div class="panel">
+<h3>🧾 سجل العمليات</h3>
+<div class="history" id="history"></div>
+</div>
 
-  <div class="stars" id="stars">
-    <span class="star" onclick="rate(1)">★</span>
-    <span class="star" onclick="rate(2)">★</span>
-    <span class="star" onclick="rate(3)">★</span>
-    <span class="star" onclick="rate(4)">★</span>
-    <span class="star" onclick="rate(5)">★</span>
-  </div>
+<!-- GRAPH -->
+<div class="panel">
+<h3>📈 الرسم البياني</h3>
 
-  <p id="rateText"></p>
+<input id="funcInput" placeholder="مثال: x*x أو sin(x)" style="width:100%;padding:10px;">
+<button class="btn" onclick="drawGraph()">رسم</button>
+
+<canvas id="chart"></canvas>
+</div>
+
 </div>
 
 </div>
@@ -203,33 +187,72 @@ small{
 <script>
 
 let screen = document.getElementById("screen");
+let memory = 0;
 
+/* input */
 function add(v){
   screen.value += v;
 }
 
-/* scientific functions */
-function addFunc(fn){
-  screen.value += fn + "(";
+function addFunc(f){
+  screen.value += f + "(";
 }
 
+/* scientific */
+function sqrt(){
+  screen.value = Math.sqrt(eval(screen.value));
+}
+
+function log10(){
+  screen.value = Math.log10(eval(screen.value));
+}
+
+function ln(){
+  screen.value = Math.log(eval(screen.value));
+}
+
+/* calc */
 function calc(){
   try{
     let expr = screen.value;
 
-    // convert sin/cos/tan degrees to radians
     expr = expr.replace(/sin\(/g,"Math.sin(Math.PI/180*");
     expr = expr.replace(/cos\(/g,"Math.cos(Math.PI/180*");
     expr = expr.replace(/tan\(/g,"Math.tan(Math.PI/180*");
+    expr = expr.replace(/\^/g,"**");
 
-    screen.value = eval(expr);
+    let result = eval(expr);
+
+    addHistory(screen.value + " = " + result);
+    screen.value = result;
+
   }catch{
     screen.value = "خطأ";
   }
 }
 
+/* history */
+function addHistory(text){
+  let h = document.getElementById("history");
+  h.innerHTML = "<div>" + text + "</div>" + h.innerHTML;
+}
+
+/* clear */
 function clearAll(){
   screen.value = "";
+}
+
+/* memory system */
+function MC(){ memory = 0; }
+
+function MR(){ screen.value += memory; }
+
+function Mplus(){
+  memory += Number(eval(screen.value || 0));
+}
+
+function Mminus(){
+  memory -= Number(eval(screen.value || 0));
 }
 
 /* theme */
@@ -237,28 +260,48 @@ function toggleTheme(){
   document.body.classList.toggle("dark");
 }
 
-/* rating system */
-function rate(n){
-  localStorage.setItem("rate", n);
-  updateStars(n);
-}
+/* GRAPH */
+let chart;
 
-function updateStars(n){
-  let stars = document.querySelectorAll(".star");
+function drawGraph(){
+  let input = document.getElementById("funcInput").value;
 
-  stars.forEach((s,i)=>{
-    s.classList.toggle("active", i < n);
+  let xVals = [];
+  let yVals = [];
+
+  for(let x=-10;x<=10;x++){
+    xVals.push(x);
+
+    try{
+      let expr = input
+        .replace(/x/g, `(${x})`)
+        .replace(/sin/g,"Math.sin")
+        .replace(/cos/g,"Math.cos")
+        .replace(/tan/g,"Math.tan");
+
+      yVals.push(eval(expr));
+    }catch{
+      yVals.push(0);
+    }
+  }
+
+  let ctx = document.getElementById("chart").getContext("2d");
+
+  if(chart) chart.destroy();
+
+  chart = new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:xVals,
+      datasets:[{
+        label:"Graph",
+        data:yVals,
+        borderColor:"blue",
+        fill:false
+      }]
+    }
   });
-
-  document.getElementById("rateText").innerText =
-    "تقييمك: " + n + " / 5 ⭐";
 }
-
-/* load rating */
-window.onload = ()=>{
-  let r = localStorage.getItem("rate");
-  if(r) updateStars(Number(r));
-};
 
 </script>
 
