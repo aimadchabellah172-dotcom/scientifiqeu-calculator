@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حاسبة علمية احترافية</title>
+<title>آلة حاسبة علمية احترافية</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -17,11 +16,19 @@ background:linear-gradient(135deg,#0f172a,#1e293b);
 color:white;
 }
 
-.container{max-width:1200px;margin:auto;padding:15px;}
+.container{
+max-width:1200px;
+margin:auto;
+padding:15px;
+}
 
-.layout{display:flex;gap:15px;flex-wrap:wrap;}
+.layout{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+}
 
-/* calculator */
+/* 🧮 calculator */
 .calc{
 width:380px;
 background:rgba(255,255,255,0.08);
@@ -41,12 +48,12 @@ background:rgba(255,255,255,0.1);
 color:white;
 }
 
-/* buttons */
-.grid{
+/* buttons rows */
+.row{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:8px;
-margin-top:10px;
+margin-top:8px;
 }
 
 .btn{
@@ -59,8 +66,15 @@ cursor:pointer;
 transition:0.2s;
 }
 
-.btn:hover{transform:scale(1.05);background:#38bdf8;color:black;}
-.btn:active{transform:scale(0.95);}
+.btn:hover{
+background:#38bdf8;
+color:black;
+transform:scale(1.05);
+}
+
+.btn:active{
+transform:scale(0.95);
+}
 
 /* panels */
 .panel{
@@ -69,11 +83,19 @@ background:rgba(255,255,255,0.08);
 padding:15px;
 border-radius:20px;
 backdrop-filter:blur(10px);
+margin-top:10px;
 }
 
 /* stars */
-.stars span{font-size:30px;color:#555;cursor:pointer;}
-.stars span.active{color:gold;}
+.stars span{
+font-size:30px;
+cursor:pointer;
+color:#555;
+}
+
+.stars span.active{
+color:gold;
+}
 
 /* comment */
 input,textarea{
@@ -93,16 +115,10 @@ margin-top:10px;
 border-radius:10px;
 }
 
-/* mic */
-.mic{
-background:red;
-border:none;
-padding:10px;
+canvas{
+background:white;
 border-radius:10px;
-cursor:pointer;
 }
-
-canvas{background:white;border-radius:10px;}
 
 </style>
 </head>
@@ -111,74 +127,92 @@ canvas{background:white;border-radius:10px;}
 
 <div class="container">
 
-<h2>🧮 آلة حاسبة علمية متقدمة جدًا</h2>
+<h2>🧮 آلة حاسبة علمية احترافية</h2>
 
 <div class="layout">
 
-<!-- CALC -->
+<!-- CALCULATOR -->
 <div class="calc">
 
 <input id="screen" class="screen" disabled>
 
-<div class="grid">
-
+<!-- 🔢 ROW 1 -->
+<div class="row">
 <button class="btn" onclick="add('7')">7</button>
 <button class="btn" onclick="add('8')">8</button>
 <button class="btn" onclick="add('9')">9</button>
 <button class="btn" onclick="add('/')">÷</button>
+</div>
 
+<!-- ROW 2 -->
+<div class="row">
 <button class="btn" onclick="add('4')">4</button>
 <button class="btn" onclick="add('5')">5</button>
 <button class="btn" onclick="add('6')">6</button>
 <button class="btn" onclick="add('*')">×</button>
+</div>
 
+<!-- ROW 3 -->
+<div class="row">
 <button class="btn" onclick="add('1')">1</button>
 <button class="btn" onclick="add('2')">2</button>
 <button class="btn" onclick="add('3')">3</button>
 <button class="btn" onclick="add('-')">-</button>
+</div>
 
+<!-- ROW 4 -->
+<div class="row">
 <button class="btn" onclick="add('0')">0</button>
 <button class="btn" onclick="add('.')">.</button>
 <button class="btn" onclick="calc()">=</button>
 <button class="btn" onclick="add('+')">+</button>
+</div>
 
-<!-- SHIFT -->
-<button class="btn" onclick="shiftMode()">SHIFT</button>
+<!-- ROW 5 SHIFT -->
+<div class="row">
+<button class="btn" onclick="shift()">SHIFT</button>
 <button class="btn" onclick="addFunc('sin')">sin</button>
 <button class="btn" onclick="addFunc('cos')">cos</button>
 <button class="btn" onclick="addFunc('tan')">tan</button>
-
-<button class="btn" onclick="sqrt()">√</button>
-<button class="btn" onclick="add('^')">xʸ</button>
-<button class="btn" onclick="clearAll()">C</button>
-<button class="btn mic" onclick="voice()">🎤</button>
-
 </div>
+
+<!-- ROW 6 SCIENTIFIC -->
+<div class="row">
+<button class="btn" onclick="sqrt()">√</button>
+<button class="btn" onclick="power()">xʸ</button>
+<button class="btn" onclick="log10()">log</button>
+<button class="btn" onclick="ln()">ln</button>
+</div>
+
+<!-- ROW 7 -->
+<div class="row">
+<button class="btn" onclick="clearAll()">C</button>
+<button class="btn" onclick="MC()">MC</button>
+<button class="btn" onclick="MR()">MR</button>
+<button class="btn" onclick="voice()">🎤</button>
+</div>
+
 </div>
 
 <!-- GRAPH -->
 <div class="panel">
 <h3>📊 Graph متعدد الدوال</h3>
-
-<input id="funcs" placeholder="مثال: x*x; sin(x); x+2">
-<button class="btn" onclick="drawMulti()">رسم</button>
-
+<input id="funcs" placeholder="x*x; sin(x); x+2">
+<button class="btn" onclick="draw()">رسم</button>
 <canvas id="chart"></canvas>
 </div>
 
 <!-- AI -->
 <div class="panel">
-<h3>🤖 AI حل المعادلات</h3>
-
-<input id="aiInput" placeholder="اكتب معادلة مثل: 2x+3=7">
-<button class="btn" onclick="solveAI()">حل</button>
-<p id="aiOut"></p>
+<h3>🤖 حل المعادلات</h3>
+<input id="ai" placeholder="2x+3=7">
+<button class="btn" onclick="solve()">حل</button>
+<p id="out"></p>
 </div>
 
 <!-- rating -->
 <div class="panel">
 <h3>⭐ التقييم</h3>
-
 <div class="stars">
 <span onclick="rate(1)">★</span>
 <span onclick="rate(2)">★</span>
@@ -186,7 +220,6 @@ canvas{background:white;border-radius:10px;}
 <span onclick="rate(4)">★</span>
 <span onclick="rate(5)">★</span>
 </div>
-
 <p id="rateText"></p>
 </div>
 
@@ -209,21 +242,19 @@ canvas{background:white;border-radius:10px;}
 
 let screen=document.getElementById("screen");
 let chart;
-let shift=false;
+let memory=0;
+let shiftMode=false;
 
 /* calc */
 function add(v){screen.value+=v;}
 function addFunc(f){screen.value+=f+"(";}
 
+/* scientific */
 function sqrt(){screen.value=Math.sqrt(eval(screen.value));}
-
+function power(){screen.value+="**";}
+function log10(){screen.value=Math.log10(eval(screen.value));}
+function ln(){screen.value=Math.log(eval(screen.value));}
 function clearAll(){screen.value="";}
-
-/* SHIFT mode */
-function shiftMode(){
-shift=!shift;
-alert(shift?"SHIFT ON":"SHIFT OFF");
-}
 
 /* calc */
 function calc(){
@@ -239,13 +270,24 @@ screen.value=eval(e);
 }catch{screen.value="خطأ";}
 }
 
+/* SHIFT */
+function shift(){
+shiftMode=!shiftMode;
+alert(shiftMode?"SHIFT ON":"SHIFT OFF");
+}
+
+/* memory */
+function MC(){memory=0;}
+function MR(){screen.value+=memory;}
+function Mplus(){memory+=Number(eval(screen.value||0));}
+function Mminus(){memory-=Number(eval(screen.value||0));}
+
 /* 🎤 voice */
 function voice(){
 let rec=new (window.SpeechRecognition||window.webkitSpeechRecognition)();
 rec.lang="ar";
 rec.start();
-
-rec.onresult=(e)=>{
+rec.onresult=e=>{
 screen.value=e.results[0][0].transcript
 .replace(/جمع/g,"+")
 .replace(/ضرب/g,"*")
@@ -253,76 +295,53 @@ screen.value=e.results[0][0].transcript
 };
 }
 
-/* 📊 multi graph */
-function drawMulti(){
-let input=document.getElementById("funcs").value.split(";");
-
-let x=[],datasets=[];
+/* 📊 graph */
+function draw(){
+let f=document.getElementById("funcs").value.split(";");
+let x=[],sets=[];
 
 for(let i=-10;i<=10;i++)x.push(i);
 
-input.forEach((f,i)=>{
+f.forEach((fn,i)=>{
 let y=[];
 for(let xVal=-10;xVal<=10;xVal++){
 try{
-let e=f.replace(/x/g,xVal);
-y.push(eval(e));
+y.push(eval(fn.replace(/x/g,xVal)));
 }catch{y.push(0);}
 }
-
-datasets.push({
-label:f,
-data:y,
-borderColor:["red","blue","green","orange"][i%4],
-fill:false
-});
+sets.push({label:fn,data:y,borderColor:["red","blue","green"][i%3]});
 });
 
 if(chart)chart.destroy();
 
 chart=new Chart(document.getElementById("chart"),{
 type:"line",
-data:{labels:x,datasets}
+data:{labels:x,datasets:sets}
 });
 }
 
-/* 🤖 AI solver */
-function solveAI(){
-let eq=document.getElementById("aiInput").value;
+/* AI solve */
+function solve(){
+let eq=document.getElementById("ai").value.split("=");
+let L=eq[0],R=eq[1];
 
-try{
-let parts=eq.split("=");
-let left=parts[0];
-let right=parts[1];
-
-let x=0;
-let step=0.01;
-
-for(let i=-100;i<100;i+=step){
-let L=eval(left.replace(/x/g,i));
-let R=eval(right);
-if(Math.abs(L-R)<0.1){
-x=i;
+for(let i=-100;i<100;i++){
+if(Math.abs(eval(L.replace(/x/g,i))-eval(R))<0.1){
+document.getElementById("out").innerText="x ≈ "+i;
 break;
 }
 }
-
-document.getElementById("aiOut").innerText="الحل التقريبي: x ≈ "+x;
-
-}catch{
-document.getElementById("aiOut").innerText="خطأ في المعادلة";
-}
 }
 
-/* ⭐ rating */
+/* rating */
 function rate(n){
 document.querySelectorAll(".stars span").forEach((s,i)=>{
 s.classList.toggle("active",i<n);
 });
-document.getElementById("rateText")="تقييمك "+n+"/5";
+document.getElementById("rateText").innerText="تقييمك "+n+"/5";
 }
 
-/* 💬 comments */
+/* comments */
 function addComment(){
 let n=document.getElementById("name").value;
 let m=document.getElementById("msg").value;
