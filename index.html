@@ -1,229 +1,237 @@
 <!DOCTYPE html>
-
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>يوم العلم الجزائري</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آلة حاسبة علمية</title>
 
 <style>
+:root{
+  --bg:#f4f4f4;
+  --card:#ffffff;
+  --text:#111;
+  --btn:#e0e0e0;
+  --accent:#4a90e2;
+}
+
+body.dark{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --text:#f8fafc;
+  --btn:#334155;
+  --accent:#38bdf8;
+}
+
 body{
   margin:0;
-  font-family:Arial;
-  direction:rtl;
+  font-family: Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
   transition:0.3s;
-  background:#f5f7ff;
 }
 
-.dark{
-  background:#121212;
-  color:white;
-}
-
-header{
-  background:linear-gradient(90deg,#0d47a1,#1976d2);
-  color:white;
-  padding:40px;
-  text-align:center;
-}
-
-nav{
-  display:flex;
-  justify-content:center;
-  background:#0b3c7a;
-  flex-wrap:wrap;
-}
-
-nav a{
-  color:white;
-  padding:10px 15px;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-section{
-  max-width:900px;
+.container{
+  max-width:1000px;
   margin:auto;
-  padding:30px;
-}
-
-.card{
-  background:white;
   padding:20px;
-  border-radius:10px;
-  margin-bottom:20px;
-  box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-.dark .card{
-  background:#1e1e1e;
-}
-
-img{
-  width:100%;
-  border-radius:10px;
-  margin-top:10px;
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 button{
-  background:#1976d2;
-  color:white;
-  border:none;
-  padding:10px 15px;
   cursor:pointer;
-  border-radius:5px;
-  margin-top:5px;
 }
 
-input,textarea{
+/* Calculator */
+.calculator{
+  background:var(--card);
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  width:320px;
+}
+
+.screen{
   width:100%;
+  height:60px;
+  font-size:22px;
+  text-align:left;
   padding:10px;
-  margin:5px 0;
-  border-radius:5px;
-  border:1px solid #ccc;
+  margin-bottom:10px;
+  border:none;
+  border-radius:10px;
+  background:var(--bg);
+  color:var(--text);
 }
 
-.comment{
-  background:#eee;
-  padding:10px;
-  margin-top:10px;
-  border-radius:5px;
+.buttons{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
 }
 
-.dark .comment{
-  background:#333;
+.btn{
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  background:var(--btn);
+  font-size:16px;
 }
 
-.topbar{
-  text-align:center;
-  padding:10px;
+.btn:hover{
+  background:var(--accent);
+  color:white;
 }
 
-.toggle{
-  position:fixed;
-  top:10px;
-  left:10px;
-  background:#000;
+/* Sections */
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:15px;
+  margin-top:20px;
 }
+
+/* Rating */
+.stars span{
+  font-size:25px;
+  cursor:pointer;
+  color:gray;
+}
+.stars span.active{
+  color:gold;
+}
+
 </style>
-
 </head>
 
 <body>
 
-<header>
-<h1>🇩🇿 يوم العلم الجزائري</h1>
-<p>16 أفريل - تخليد العلم والعلماء</p>
-</header>
+<div class="container">
 
-<div class="topbar">
-<button class="toggle" onclick="toggleMode()">🌙 تبديل الوضع</button>
+  <div class="header">
+    <h2>آلة حاسبة علمية</h2>
+    <button onclick="toggleTheme()">🌙 تبديل الوضع</button>
+  </div>
+
+  <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+    <!-- Calculator -->
+    <div class="calculator">
+      <input id="screen" class="screen" disabled>
+
+      <div class="buttons">
+        <button class="btn" onclick="press('7')">7</button>
+        <button class="btn" onclick="press('8')">8</button>
+        <button class="btn" onclick="press('9')">9</button>
+        <button class="btn" onclick="press('/')">/</button>
+
+        <button class="btn" onclick="press('4')">4</button>
+        <button class="btn" onclick="press('5')">5</button>
+        <button class="btn" onclick="press('6')">6</button>
+        <button class="btn" onclick="press('*')">*</button>
+
+        <button class="btn" onclick="press('1')">1</button>
+        <button class="btn" onclick="press('2')">2</button>
+        <button class="btn" onclick="press('3')">3</button>
+        <button class="btn" onclick="press('-')">-</button>
+
+        <button class="btn" onclick="press('0')">0</button>
+        <button class="btn" onclick="press('.')">.</button>
+        <button class="btn" onclick="calc()">=</button>
+        <button class="btn" onclick="press('+')">+</button>
+
+        <!-- Scientific -->
+        <button class="btn" onclick="func('Math.sin')">sin</button>
+        <button class="btn" onclick="func('Math.cos')">cos</button>
+        <button class="btn" onclick="func('Math.tan')">tan</button>
+        <button class="btn" onclick="clearScreen()">C</button>
+      </div>
+    </div>
+
+    <!-- Explanation -->
+    <div class="card" style="flex:1;">
+      <h3>طريقة عمل الحاسبة</h3>
+      <p>
+        هذه الحاسبة تعتمد على JavaScript لتنفيذ العمليات الرياضية.
+        يتم إدخال الأرقام والرموز في شاشة العرض ثم يتم تقييمها باستخدام دالة الحساب.
+      </p>
+      <p>
+        العمليات العلمية مثل sin و cos و tan تعتمد على مكتبة Math المدمجة في JavaScript.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Rating -->
+  <div class="card">
+    <h3>تقييم الموقع</h3>
+    <div class="stars" id="stars">
+      <span onclick="rate(1)">★</span>
+      <span onclick="rate(2)">★</span>
+      <span onclick="rate(3)">★</span>
+      <span onclick="rate(4)">★</span>
+      <span onclick="rate(5)">★</span>
+    </div>
+    <p id="ratingText"></p>
+  </div>
+
 </div>
-
-<nav>
-<a href="#history">التاريخ</a>
-<a href="#story">القصة</a>
-<a href="#gallery">صور</a>
-<a href="#video">فيديو</a>
-<a href="#comments">تعليقات</a>
-</nav>
-
-<section id="history">
-<div class="card">
-<h2>📚 ما هو يوم العلم؟</h2>
-<p>يوم العلم هو مناسبة وطنية في الجزائر تُحيي ذكرى وفاة عبد الحميد بن باديس، رمز النهضة الفكرية والتعليمية.</p>
-</div>
-</section>
-
-<section id="story">
-<div class="card">
-<h2>📖 عبد الحميد بن باديس</h2>
-<p>
-عالم ومصلح جزائري أسس جمعية العلماء المسلمين الجزائريين،
-ودعا إلى التعليم والهوية الوطنية.
-</p>
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Abdelhamid_Ben_Badis.jpg">
-</div>
-</section>
-
-<section id="gallery">
-<div class="card">
-<h2>🖼️ معرض صور</h2>
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Abdelhamid_Ben_Badis.jpg">
-<img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Algeria_flag.png">
-</div>
-</section>
-
-<section id="video">
-<div class="card">
-<h2>🎥 فيديو</h2>
-
-<iframe width="100%" height="400"
-src="https://www.youtube.com/embed/2tL0bpbN4SU"
-allowfullscreen></iframe>
-
-</div>
-</section>
-
-<section id="comments">
-<div class="card">
-<h2>💬 التعليقات</h2>
-
-<input type="text" id="name" placeholder="اسمك">
-<textarea id="text" placeholder="تعليقك"></textarea>
-<button onclick="addComment()">إرسال</button>
-
-<div id="list"></div>
-</div>
-</section>
 
 <script>
 
-// وضع ليلي
-function toggleMode(){
+let screen = document.getElementById("screen");
+
+function press(val){
+  screen.value += val;
+}
+
+function calc(){
+  try{
+    screen.value = eval(screen.value);
+  }catch{
+    screen.value = "خطأ";
+  }
+}
+
+function clearScreen(){
+  screen.value = "";
+}
+
+function func(name){
+  screen.value += name + "(";
+}
+
+function toggleTheme(){
   document.body.classList.toggle("dark");
 }
 
-// تحميل التعليقات
-window.onload = function(){
-  let data = JSON.parse(localStorage.getItem("comments")) || [];
-  data.forEach(addToPage);
+/* Rating */
+function rate(star){
+  let stars = document.querySelectorAll("#stars span");
+  stars.forEach((s,i)=>{
+    s.classList.toggle("active", i < star);
+  });
+
+  localStorage.setItem("rating", star);
+  document.getElementById("ratingText").innerText =
+    "شكراً! تقييمك: " + star + "/5";
 }
 
-// إضافة تعليق
-function addComment(){
-  let name = document.getElementById("name").value;
-  let text = document.getElementById("text").value;
-
-  if(!name || !text){
-    alert("املأ الحقول");
-    return;
+/* Load rating */
+window.onload = ()=>{
+  let saved = localStorage.getItem("rating");
+  if(saved){
+    rate(saved);
   }
-
-  let comment = {name, text};
-
-  let data = JSON.parse(localStorage.getItem("comments")) || [];
-  data.push(comment);
-
-  localStorage.setItem("comments", JSON.stringify(data));
-
-  addToPage(comment);
-
-  document.getElementById("name").value="";
-  document.getElementById("text").value="";
-}
-
-// عرض تعليق
-function addToPage(c){
-  let div = document.createElement("div");
-  div.className="comment";
-  div.innerHTML = "<b>"+c.name+"</b><br>"+c.text;
-  document.getElementById("list").appendChild(div);
-}
+};
 
 </script>
 
 </body>
+</html>
 </html>
 
