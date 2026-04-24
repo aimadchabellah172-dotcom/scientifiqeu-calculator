@@ -8,129 +8,127 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-:root{
-  --bg:#f5f7fb;
-  --card:#fff;
-  --text:#111;
-  --btn:#e9eef5;
-  --accent:#4a90e2;
-}
 
-body.dark{
-  --bg:#0b1220;
-  --card:#1b2435;
-  --text:#f8fafc;
-  --btn:#2a354b;
-  --accent:#38bdf8;
-}
-
+/* 🎨 خلفية احترافية */
 body{
-  margin:0;
-  font-family:Arial;
-  background:var(--bg);
-  color:var(--text);
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+display:flex;
+justify-content:center;
+padding:20px;
 }
 
+/* container */
 .container{
-  max-width:1200px;
-  margin:auto;
-  padding:15px;
+width:100%;
+max-width:1200px;
 }
 
+/* layout */
 .layout{
-  display:flex;
-  flex-wrap:wrap;
-  gap:15px;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
 }
 
-/* calculator */
+/* 🧮 calculator */
 .calc{
-  width:360px;
-  background:var(--card);
-  padding:15px;
-  border-radius:20px;
+width:360px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+border-radius:20px;
+padding:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
+/* screen */
 .screen{
-  width:100%;
-  height:70px;
-  font-size:24px;
-  border:none;
-  border-radius:10px;
-  background:var(--bg);
-  color:var(--text);
-  padding:10px;
+width:100%;
+height:70px;
+font-size:26px;
+border:none;
+border-radius:12px;
+padding:10px;
+background:rgba(255,255,255,0.1);
+color:white;
+text-align:left;
 }
 
+/* grid */
 .grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-  margin-top:10px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-top:10px;
 }
 
+/* 🔘 buttons */
 .btn{
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:var(--btn);
-  cursor:pointer;
+padding:14px;
+border:none;
+border-radius:12px;
+background:linear-gradient(145deg,#334155,#1e293b);
+color:white;
+cursor:pointer;
+transition:0.2s;
+box-shadow:0 5px 10px rgba(0,0,0,0.3);
 }
 
 .btn:hover{
-  background:var(--accent);
-  color:#fff;
+transform:scale(1.08);
+background:linear-gradient(145deg,#38bdf8,#2563eb);
+}
+
+.btn:active{
+transform:scale(0.95);
 }
 
 /* panels */
 .panel{
-  flex:1;
-  background:var(--card);
-  padding:15px;
-  border-radius:20px;
-}
-
-/* history */
-.history{
-  max-height:200px;
-  overflow:auto;
+flex:1;
+background:rgba(255,255,255,0.08);
+padding:15px;
+border-radius:20px;
+backdrop-filter:blur(10px);
 }
 
 /* stars */
-.stars{
-  font-size:30px;
-  cursor:pointer;
-}
-
 .stars span{
-  color:#bbb;
+font-size:30px;
+cursor:pointer;
+color:#555;
+transition:0.2s;
 }
 
 .stars span.active{
-  color:gold;
+color:gold;
+transform:scale(1.2);
 }
 
-/* comments */
+/* comment */
 textarea,input{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  border-radius:10px;
-  border:none;
-  background:var(--bg);
-  color:var(--text);
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+border:none;
+background:rgba(255,255,255,0.1);
+color:white;
 }
 
 .comment{
-  background:var(--bg);
-  margin-top:10px;
-  padding:10px;
-  border-radius:10px;
+background:rgba(255,255,255,0.1);
+margin-top:10px;
+padding:10px;
+border-radius:10px;
 }
 
+/* chart */
 canvas{
-  background:#fff;
-  border-radius:10px;
+background:white;
+border-radius:10px;
 }
 
 </style>
@@ -141,7 +139,6 @@ canvas{
 <div class="container">
 
 <h2>🧮 آلة حاسبة علمية احترافية</h2>
-<button onclick="toggleTheme()">🌙 الوضع</button>
 
 <div class="layout">
 
@@ -172,39 +169,32 @@ canvas{
 <button class="btn" onclick="calc()">=</button>
 <button class="btn" onclick="add('+')">+</button>
 
+<!-- 🔥 scientific -->
 <button class="btn" onclick="addFunc('sin')">sin</button>
 <button class="btn" onclick="addFunc('cos')">cos</button>
 <button class="btn" onclick="addFunc('tan')">tan</button>
+<button class="btn" onclick="sqrt()">√</button>
+
+<button class="btn" onclick="power()">xʸ</button>
+<button class="btn" onclick="log10()">log</button>
+<button class="btn" onclick="ln()">ln</button>
 <button class="btn" onclick="clearAll()">C</button>
 
-<button class="btn" onclick="MC()">MC</button>
-<button class="btn" onclick="MR()">MR</button>
-<button class="btn" onclick="Mplus()">M+</button>
-<button class="btn" onclick="Mminus()">M-</button>
-
 </div>
-</div>
-
-<!-- history -->
-<div class="panel">
-<h3>🧾 السجل</h3>
-<div class="history" id="history"></div>
 </div>
 
 <!-- graph -->
 <div class="panel">
 <h3>📈 الرسم البياني</h3>
-<input id="func" placeholder="مثال: x*x أو sin(x)">
+<input id="func" placeholder="x*x أو sin(x)">
 <button class="btn" onclick="draw()">رسم</button>
 <canvas id="chart"></canvas>
-</div>
-
 </div>
 
 <!-- rating -->
 <div class="panel">
 <h3>⭐ التقييم</h3>
-<div class="stars" id="stars">
+<div class="stars">
 <span onclick="rate(1)">★</span>
 <span onclick="rate(2)">★</span>
 <span onclick="rate(3)">★</span>
@@ -214,64 +204,59 @@ canvas{
 <p id="rateText"></p>
 </div>
 
-<!-- comments -->
-<div class="panel">
-<h3>💬 التعليقات</h3>
-
-<input id="name" placeholder="اسمك">
-<textarea id="msg" placeholder="تعليقك"></textarea>
-
-<button class="btn" onclick="addComment()">إرسال</button>
-
-<div id="comments"></div>
-</div>
-
 </div>
 
 <script>
 
 let screen=document.getElementById("screen");
-let memory=0;
 let chart;
 
-/* calc */
+/* input */
 function add(v){screen.value+=v;}
 function addFunc(f){screen.value+=f+"(";}
 
+/* √ */
+function sqrt(){
+screen.value=Math.sqrt(eval(screen.value));
+}
+
+/* power */
+function power(){
+screen.value+="**";
+}
+
+/* log */
+function log10(){
+screen.value=Math.log10(eval(screen.value));
+}
+
+function ln(){
+screen.value=Math.log(eval(screen.value));
+}
+
+/* calc */
 function calc(){
 try{
 let e=screen.value;
+
 e=e.replace(/sin\(/g,"Math.sin(Math.PI/180*");
 e=e.replace(/cos\(/g,"Math.cos(Math.PI/180*");
 e=e.replace(/tan\(/g,"Math.tan(Math.PI/180*");
-e=e.replace(/\^/g,"**");
 
-let r=eval(e);
-addHistory(screen.value+" = "+r);
-screen.value=r;
-}catch{screen.value="خطأ";}
+screen.value=eval(e);
+}catch{
+screen.value="خطأ";
+}
 }
 
+/* clear */
 function clearAll(){screen.value="";}
-
-/* memory */
-function MC(){memory=0;}
-function MR(){screen.value+=memory;}
-function Mplus(){memory+=Number(eval(screen.value||0));}
-function Mminus(){memory-=Number(eval(screen.value||0));}
-
-/* history */
-function addHistory(t){
-document.getElementById("history").innerHTML="<div>"+t+"</div>"+document.getElementById("history").innerHTML;
-}
-
-/* theme */
-function toggleTheme(){document.body.classList.toggle("dark");}
 
 /* graph */
 function draw(){
 let f=document.getElementById("func").value;
 let x=[],y=[];
+
 for(let i=-10;i<=10;i++){
 x.push(i);
 try{
@@ -281,52 +266,20 @@ y.push(eval(e));
 }
 
 if(chart)chart.destroy();
+
 chart=new Chart(document.getElementById("chart"),{
 type:"line",
-data:{labels:x,datasets:[{data:y,borderColor:"blue"}]}
+data:{labels:x,datasets:[{data:y,borderColor:"cyan"}]}
 });
 }
 
 /* rating */
 function rate(n){
-localStorage.setItem("rate",n);
-update(n);
-}
-
-function update(n){
 document.querySelectorAll(".stars span").forEach((s,i)=>{
 s.classList.toggle("active",i<n);
 });
 document.getElementById("rateText").innerText="تقييمك "+n+"/5";
 }
-
-/* comments */
-function addComment(){
-let n=document.getElementById("name").value;
-let m=document.getElementById("msg").value;
-if(!n||!m)return;
-
-let c=JSON.parse(localStorage.getItem("c")||"[]");
-c.unshift({n,m});
-localStorage.setItem("c",JSON.stringify(c));
-load();
-}
-
-function load(){
-let box=document.getElementById("comments");
-let c=JSON.parse(localStorage.getItem("c")||"[]");
-box.innerHTML="";
-c.forEach(v=>{
-box.innerHTML+=`<div class="comment"><b>${v.n}</b><p>${v.m}</p></div>`;
-});
-}
-
-/* init */
-window.onload=()=>{
-load();
-let r=localStorage.getItem("rate");
-if(r)update(Number(r));
-};
 
 </script>
 
