@@ -9,7 +9,7 @@
 
 <style>
 /* عام */
-body{
+body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #0f172a, #1e293b);
@@ -276,23 +276,6 @@ body.light-mode input, body.light-mode textarea {
 
 <script>
 
-let screen=document.getElementById("screen");
+let screen = document.getElementById("screen");
 let chart;
-let isDarkMode = true;  // الوضع الافتراضي هو الوضع الليلي
-
-/* Toggle بين الوضع الليلي والنهاري */
-function toggleMode() {
-  isDarkMode = !isDarkMode;
-  if (isDarkMode) {
-    document.body.classList.remove("light-mode");
-  } else {
-    document.body.classList.add("light-mode");
-  }
-}
-
-/* حسابات الآلة */
-function add(v) { screen.value += v; }
-function addFunc(f) { screen.value += f + "("; }
-
-/* العمليات الرياضية */
-function sqrt() {
+let isDarkMode = true;  // الوضع
