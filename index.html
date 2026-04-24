@@ -17,26 +17,23 @@ color:white;
 }
 
 .container{
-max-width:1200px;
+max-width:900px;
 margin:auto;
 padding:15px;
-}
-
-.layout{
 display:flex;
-flex-wrap:wrap;
-gap:15px;
+flex-direction:column;
+gap:20px;
 }
 
-/* 🧮 calculator */
-.calc{
-width:380px;
+/* cards */
+.card{
 background:rgba(255,255,255,0.08);
 padding:15px;
 border-radius:20px;
 backdrop-filter:blur(10px);
 }
 
+/* calculator */
 .screen{
 width:100%;
 height:70px;
@@ -48,7 +45,6 @@ background:rgba(255,255,255,0.1);
 color:white;
 }
 
-/* buttons rows */
 .row{
 display:grid;
 grid-template-columns:repeat(4,1fr);
@@ -76,16 +72,6 @@ transform:scale(1.05);
 transform:scale(0.95);
 }
 
-/* panels */
-.panel{
-flex:1;
-background:rgba(255,255,255,0.08);
-padding:15px;
-border-radius:20px;
-backdrop-filter:blur(10px);
-margin-top:10px;
-}
-
 /* stars */
 .stars span{
 font-size:30px;
@@ -97,7 +83,7 @@ color:#555;
 color:gold;
 }
 
-/* comment */
+/* input */
 input,textarea{
 width:100%;
 padding:10px;
@@ -108,6 +94,7 @@ background:rgba(255,255,255,0.1);
 color:white;
 }
 
+/* comment */
 .comment{
 background:rgba(255,255,255,0.1);
 padding:10px;
@@ -129,14 +116,11 @@ border-radius:10px;
 
 <h2>🧮 آلة حاسبة علمية احترافية</h2>
 
-<div class="layout">
-
-<!-- CALCULATOR -->
-<div class="calc">
+<!-- 🧮 CALCULATOR -->
+<div class="card">
 
 <input id="screen" class="screen" disabled>
 
-<!-- 🔢 ROW 1 -->
 <div class="row">
 <button class="btn" onclick="add('7')">7</button>
 <button class="btn" onclick="add('8')">8</button>
@@ -144,7 +128,6 @@ border-radius:10px;
 <button class="btn" onclick="add('/')">÷</button>
 </div>
 
-<!-- ROW 2 -->
 <div class="row">
 <button class="btn" onclick="add('4')">4</button>
 <button class="btn" onclick="add('5')">5</button>
@@ -152,7 +135,6 @@ border-radius:10px;
 <button class="btn" onclick="add('*')">×</button>
 </div>
 
-<!-- ROW 3 -->
 <div class="row">
 <button class="btn" onclick="add('1')">1</button>
 <button class="btn" onclick="add('2')">2</button>
@@ -160,7 +142,6 @@ border-radius:10px;
 <button class="btn" onclick="add('-')">-</button>
 </div>
 
-<!-- ROW 4 -->
 <div class="row">
 <button class="btn" onclick="add('0')">0</button>
 <button class="btn" onclick="add('.')">.</button>
@@ -168,51 +149,42 @@ border-radius:10px;
 <button class="btn" onclick="add('+')">+</button>
 </div>
 
-<!-- ROW 5 SHIFT -->
 <div class="row">
-<button class="btn" onclick="shift()">SHIFT</button>
 <button class="btn" onclick="addFunc('sin')">sin</button>
 <button class="btn" onclick="addFunc('cos')">cos</button>
 <button class="btn" onclick="addFunc('tan')">tan</button>
+<button class="btn" onclick="sqrt()">√</button>
 </div>
 
-<!-- ROW 6 SCIENTIFIC -->
 <div class="row">
-<button class="btn" onclick="sqrt()">√</button>
 <button class="btn" onclick="power()">xʸ</button>
 <button class="btn" onclick="log10()">log</button>
 <button class="btn" onclick="ln()">ln</button>
-</div>
-
-<!-- ROW 7 -->
-<div class="row">
 <button class="btn" onclick="clearAll()">C</button>
-<button class="btn" onclick="MC()">MC</button>
-<button class="btn" onclick="MR()">MR</button>
-<button class="btn" onclick="voice()">🎤</button>
 </div>
 
 </div>
 
-<!-- GRAPH -->
-<div class="panel">
-<h3>📊 Graph متعدد الدوال</h3>
+<!-- 📊 GRAPH -->
+<div class="card">
+<h3>📊 الرسم البياني</h3>
 <input id="funcs" placeholder="x*x; sin(x); x+2">
 <button class="btn" onclick="draw()">رسم</button>
 <canvas id="chart"></canvas>
 </div>
 
-<!-- AI -->
-<div class="panel">
-<h3>🤖 حل المعادلات</h3>
-<input id="ai" placeholder="2x+3=7">
+<!-- 🤖 AI -->
+<div class="card">
+<h3>🤖 الذكاء الاصطناعي (حل معادلات)</h3>
+<input id="ai" placeholder="مثال: 2x+3=7">
 <button class="btn" onclick="solve()">حل</button>
 <p id="out"></p>
 </div>
 
-<!-- rating -->
-<div class="panel">
+<!-- ⭐ RATING -->
+<div class="card">
 <h3>⭐ التقييم</h3>
+
 <div class="stars">
 <span onclick="rate(1)">★</span>
 <span onclick="rate(2)">★</span>
@@ -220,11 +192,12 @@ border-radius:10px;
 <span onclick="rate(4)">★</span>
 <span onclick="rate(5)">★</span>
 </div>
+
 <p id="rateText"></p>
 </div>
 
-<!-- comments -->
-<div class="panel">
+<!-- 💬 COMMENTS -->
+<div class="card">
 <h3>💬 التعليقات</h3>
 
 <input id="name" placeholder="اسمك">
@@ -242,21 +215,18 @@ border-radius:10px;
 
 let screen=document.getElementById("screen");
 let chart;
-let memory=0;
-let shiftMode=false;
 
-/* calc */
+/* calculator */
 function add(v){screen.value+=v;}
 function addFunc(f){screen.value+=f+"(";}
 
-/* scientific */
+/* math */
 function sqrt(){screen.value=Math.sqrt(eval(screen.value));}
 function power(){screen.value+="**";}
 function log10(){screen.value=Math.log10(eval(screen.value));}
 function ln(){screen.value=Math.log(eval(screen.value));}
 function clearAll(){screen.value="";}
 
-/* calc */
 function calc(){
 try{
 let e=screen.value;
@@ -270,34 +240,10 @@ screen.value=eval(e);
 }catch{screen.value="خطأ";}
 }
 
-/* SHIFT */
-function shift(){
-shiftMode=!shiftMode;
-alert(shiftMode?"SHIFT ON":"SHIFT OFF");
-}
-
-/* memory */
-function MC(){memory=0;}
-function MR(){screen.value+=memory;}
-function Mplus(){memory+=Number(eval(screen.value||0));}
-function Mminus(){memory-=Number(eval(screen.value||0));}
-
-/* 🎤 voice */
-function voice(){
-let rec=new (window.SpeechRecognition||window.webkitSpeechRecognition)();
-rec.lang="ar";
-rec.start();
-rec.onresult=e=>{
-screen.value=e.results[0][0].transcript
-.replace(/جمع/g,"+")
-.replace(/ضرب/g,"*")
-.replace(/قسمة/g,"/");
-};
-}
-
 /* 📊 graph */
 function draw(){
 let f=document.getElementById("funcs").value.split(";");
+
 let x=[],sets=[];
 
 for(let i=-10;i<=10;i++)x.push(i);
@@ -309,7 +255,12 @@ try{
 y.push(eval(fn.replace(/x/g,xVal)));
 }catch{y.push(0);}
 }
-sets.push({label:fn,data:y,borderColor:["red","blue","green"][i%3]});
+sets.push({
+label:fn,
+data:y,
+borderColor:["red","blue","green","orange"][i%4],
+fill:false
+});
 });
 
 if(chart)chart.destroy();
@@ -320,7 +271,7 @@ data:{labels:x,datasets:sets}
 });
 }
 
-/* AI solve */
+/* 🤖 AI */
 function solve(){
 let eq=document.getElementById("ai").value.split("=");
 let L=eq[0],R=eq[1];
@@ -333,7 +284,7 @@ break;
 }
 }
 
-/* rating */
+/* ⭐ rating */
 function rate(n){
 document.querySelectorAll(".stars span").forEach((s,i)=>{
 s.classList.toggle("active",i<n);
@@ -341,7 +292,7 @@ s.classList.toggle("active",i<n);
 document.getElementById("rateText").innerText="تقييمك "+n+"/5";
 }
 
-/* comments */
+/* 💬 comments */
 function addComment(){
 let n=document.getElementById("name").value;
 let m=document.getElementById("msg").value;
