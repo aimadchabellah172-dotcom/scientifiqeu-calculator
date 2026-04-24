@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>موقعي</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f4f4f4;
+      text-align: center;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 15px;
+    }
+    nav a {
+      color: white;
+      margin: 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 40px;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    footer {
+      background: #222;
+      color: white;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🚀 مرحباً بك في موقعي</h1>
+  <nav>
+    <a href="#home">الرئيسية</a>
+    <a href="#about">من أنا</a>
+    <a href="#contact">تواصل</a>
+  </nav>
+</header>
+
+<section id="home">
+  <h2>الصفحة الرئيسية</h2>
+  <p>هذا موقع بسيط شغال على GitHub Pages</p>
+  <button class="btn" onclick="showMessage()">اضغط هنا</button>
+</section>
+
+<section id="about">
+  <h2>من أنا</h2>
+  <p>أنا مطور أتعلم وأبني مواقع 🌐</p>
+</section>
+
+<section id="contact">
+  <h2>تواصل معي</h2>
+  <p>اكتب لي رسالة:</p>
+  <input type="text" id="msg" placeholder="اكتب هنا">
+  <button class="btn" onclick="sendMessage()">إرسال</button>
+</section>
+
+<footer>
+  <p>© 2026 جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+  function showMessage() {
+    alert("اشتغل الزر بنجاح 🎉");
+  }
+
+  function sendMessage() {
+    let msg = document.getElementById("msg").value;
+    if(msg === "") {
+      alert("اكتب رسالة أولاً!");
+    } else {
+      alert("تم إرسال: " + msg);
+    }
+  }
+</script>
+
+</body>
+</html>
