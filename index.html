@@ -15,6 +15,12 @@ body{
   background: linear-gradient(135deg, #0f172a, #1e293b);
   color: white;
   animation: fadeIn 1s ease-in-out;
+  transition: background-color 0.3s ease;
+}
+
+body.light-mode {
+  background: #ffffff;
+  color: #333;
 }
 
 .container {
@@ -59,8 +65,9 @@ body{
   transition: background-color 0.3s ease;
 }
 
-.screen:focus {
-  background: rgba(255, 255, 255, 0.2);
+body.light-mode .screen {
+  background: rgba(0, 0, 0, 0.1);
+  color: black;
 }
 
 /* الأزرار */
@@ -79,6 +86,16 @@ body{
   color: white;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+body.light-mode .btn {
+  background: #f1f1f1;
+  color: #333;
+}
+
+body.light-mode .btn:hover {
+  background: #38bdf8;
+  color: black;
 }
 
 .btn:hover {
@@ -145,6 +162,11 @@ input:focus, textarea:focus {
   background: rgba(255, 255, 255, 0.2);
 }
 
+body.light-mode input, body.light-mode textarea {
+  background: rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
 </style>
 </head>
 
@@ -153,6 +175,9 @@ input:focus, textarea:focus {
 <div class="container">
 
 <h2>🧮 آلة حاسبة علمية احترافية</h2>
+
+<!-- زر الوضع الليلي / النهاري -->
+<button onclick="toggleMode()" class="btn" style="margin-bottom: 15px;">🌙 / 🌞 تغيير الوضع</button>
 
 <!-- 🧮 CALCULATOR -->
 <div class="card">
@@ -253,35 +278,21 @@ input:focus, textarea:focus {
 
 let screen=document.getElementById("screen");
 let chart;
+let isDarkMode = true;  // الوضع الافتراضي هو الوضع الليلي
 
-/* calc */
-function add(v){screen.value+=v;}
-function addFunc(f){screen.value+=f+"(";}
-
-/* math */
-function sqrt(){screen.value=Math.sqrt(eval(screen.value));}
-function power(){screen.value+="**";}
-function log10(){screen.value=Math.log10(eval(screen.value));}
-function ln(){screen.value=Math.log(eval(screen.value));}
-function clearAll(){screen.value="";}
-
-function calc(){
-try{
-let e=screen.value;
-
-e=e.replace(/sin\(/g,"Math.sin(Math.PI/180*");
-e=e.replace(/cos\(/g,"Math.cos(Math.PI/180*");
-e=e.replace(/tan\(/g,"Math.tan(Math.PI/180*");
-e=e.replace(/\^/g,"**");
-
-screen.value=eval(e);
-}catch{screen.value="خطأ";}
+/* Toggle بين الوضع الليلي والنهاري */
+function toggleMode() {
+  isDarkMode = !isDarkMode;
+  if (isDarkMode) {
+    document.body.classList.remove("light-mode");
+  } else {
+    document.body.classList.add("light-mode");
+  }
 }
 
-/* 📊 graph */
-function draw(){
-let f=document.getElementById("funcs").value.split(";");
+/* حسابات الآلة */
+function add(v) { screen.value += v; }
+function addFunc(f) { screen.value += f + "("; }
 
-let x=[],sets=[];
-
-for(let i=-10;i<=10;i++)
+/* العمليات الرياضية */
+function sqrt() {
